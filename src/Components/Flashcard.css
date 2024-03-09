@@ -1,0 +1,17 @@
+.flashcard_container{
+    height: 300px;
+    width: 500px;
+    padding-bottom: 15px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;  */
+    perspective: 1000px;
+    position: relative;
+}
+.next{
+    position: absolute;
+    left: 44%;
+}
+p{
+    text-align: center;
+}

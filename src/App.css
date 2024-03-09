@@ -1,0 +1,16 @@
+/* #root {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+  } */
+  .App{
+    width: 100vw;
+    height: 100vh;
+    padding: 5px 5px 5px 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+  }
