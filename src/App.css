@@ -6,7 +6,7 @@
   .App{
     width: 100vw;
     height: 100vh;
-    padding: 5px 5px 5px 5px;
+    padding: 25px;
 
     display: flex;
     flex-direction: column;

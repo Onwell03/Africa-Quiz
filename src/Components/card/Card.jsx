@@ -1,6 +1,7 @@
 import "./Card.css";
 
 const Card = (props) => {
+
     return (
         <div className="card" onClick={props.onClick}>
             <div className="card_back">{props.answer}</div>
