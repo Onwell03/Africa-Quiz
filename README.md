@@ -38,7 +38,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='src/assets/Screen Recording 2024-03-08 at 9.17.45 PM.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='src/assets/Screen Recording 2024-03-15 at 1.16.13 AM.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...  
