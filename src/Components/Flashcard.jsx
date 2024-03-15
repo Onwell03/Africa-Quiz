@@ -6,9 +6,14 @@ import { useState } from "react";
 const Flashcard = () =>{
     const [showFront, setShowFront] = useState(true);
     const [index, setIndex] = useState(0);
+    const [currentStreak, setCurrentStreak] = useState(0);
+    const [longestStreak, setLongestStreak] = useState(0);
+    const [correctAnswer, setCorrectAnswer] = useState('');
+    const [inputValue, setInputValue] = useState('');
+    const [trueAnswer, setTrueAnswer] = useState('');
 
     const pairs = [
-        {question : "Start", answer : "Click the button below"},
+        {question : "Start", answer : "Click the NEXT button below"},
         {question : "How many countries are in Africa?", answer : "54 countries"},
         {question : "The largest country in Africa?", answer : "Algeria"},
         {question : "Which country's flag is this?", 
@@ -30,12 +35,89 @@ const Flashcard = () =>{
         if (index < 12){
             setIndex(index+1)
             setShowFront(true)
+            setTrueAnswer(pairs[index+1].answer)
+            setCorrectAnswer('')
+            setInputValue('')
+        }
+    }
+    const Prev = () => {
+        if (index > 0){
+            setIndex(index - 1)
+            setShowFront(true)
+            setTrueAnswer(pairs[index-1].answer)
+            setCorrectAnswer('')
+            setInputValue('')
+        }
+    }
+    const Shuffle = () => {
+        const newIndex = Math.floor(Math.random() * pairs.length)
+        setIndex(newIndex)
+        setShowFront(true)
+        setTrueAnswer(pairs[newIndex].answer)
+        setCorrectAnswer('')
+        setInputValue('')
+    }
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    }
+
+    const LavenshteinDistance = (a, b) => {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+
+        const matrix = []
+
+        for (let i = 0; i <= b.length; i++){
+            matrix[i] = [i];
+        }
+
+        for(let j = 0; j <= a.length; j++){
+            matrix[0][j] = j;
+        }
+
+        for (let i = 1; i <= b.length; i++){
+            for (let j = 1; j <= a.length; j++){
+                if (b.charAt(i-1) === a.charAt(j-1)){
+                    matrix[i][j] = matrix[i-1][j-1];
+                }else{
+                    matrix[i][j] = Math.min(
+                        matrix[i-1][j-1] +1,
+                        matrix[i][j-1] +1,
+                        matrix[i-1][j] +1
+                    );
+                }
+            }
+        }
+        return matrix[b.length][a.length];
+    }
+
+    const CheckAnswer = () => {
+        const similarityThreashold = 3;
+
+        if (inputValue !== trueAnswer){
+            const distance = LavenshteinDistance(inputValue.toLowerCase(), trueAnswer.toLowerCase());
+            if (distance <= similarityThreashold){
+                setCorrectAnswer('correct');
+                setCurrentStreak(currentStreak + 1)
+            }else{
+                setCorrectAnswer('wrong')
+                if (currentStreak > longestStreak){
+                    setLongestStreak(currentStreak);
+                    setCurrentStreak(0);
+                }
+            }
+
+        }else{
+            setCorrectAnswer('correct');
+            setCurrentStreak(currentStreak + 1)
         }
     }
 
     return(
         <div className="flashcard_container">
             <p>Number of cards: {index + 1} / {pairs.length} </p>
+            <p>Current Streak: {currentStreak}, Longest Streak: {longestStreak}</p>
             <CSSTransition 
                 in={showFront}
                 timeout={300}
@@ -47,9 +129,23 @@ const Flashcard = () =>{
                     answer={pairs[index].answer}
                 />
             </CSSTransition>
+            <div className="input">
+                <p>Guess the answer here:</p>
+                <input
+                    id={correctAnswer} 
+                    type="text"
+                    value={inputValue}
+                    onChange={handleChange}
+                    placeholder="Type your answer here!"
+                    />
+                <button className="submit" onClick={CheckAnswer}>Submit Guess</button>
+            </div>
 
-            <button className='next' onClick={New} disabled={index >=12}>NEXT</button>
-
+            <div className="buttons">
+                <button className="prev" onClick={Prev} disabled={index==0}>Prev</button>
+                <button className='next' onClick={New} disabled={index >=12}>Next</button>
+                <button className="shuffle" onClick={Shuffle}>Shuffle</button>
+            </div>
         </div>
     );
 }

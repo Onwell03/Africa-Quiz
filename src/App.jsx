@@ -8,8 +8,7 @@ function App() {
     <div className='App'>
       <h1>Africa General Knowledge</h1>
       <h4>Below contains Africa General Knowledge questions and answers. 
-        You are currently in the History Question & Answers quizzes section. 
-        Quiz Global also has many multiple choice tests which are available to play here
+        You are currently in the History Question & Answers quizzes section.
       </h4>
 
       <Flashcard />
@@ -18,4 +17,3 @@ function App() {
 }
 
 export default App
-

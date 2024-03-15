@@ -8,10 +8,6 @@
     perspective: 1000px;
     position: relative;
 }
-.next{
-    position: absolute;
-    left: 44%;
-}
 p{
     text-align: center;
 }

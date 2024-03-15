@@ -14,3 +14,20 @@
     align-items: center;
     background-color: gray;
   }
+  #wrong {
+    background-color:rgb(219, 93, 93);
+  }
+  
+  #correct {
+    background-color:rgb(191, 116, 191);
+  }
+  .input{
+    text-align: center;
+  }
+  .input p, input, button{
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .buttons{
+    text-align: center;
+  }
